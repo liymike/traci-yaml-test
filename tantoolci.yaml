@@ -1,0 +1,79 @@
+## Customize the test machine
+machine:
+
+  timezone:
+    America/Los_Angeles # Set the timezone
+
+  # Version of ruby to use
+  python:
+    version:
+      pypy
+
+  # Override /etc/hosts
+  hosts:
+    tantoolci: 127.0.0.1
+    ci.tantool.com: 127.0.0.1
+
+  # Add some environment variables
+  environment:
+    CIRCLE_ENV: test
+    DATABASE_URL: postgres://ubuntu:@127.0.0.1:5432/circle_test
+    MOMOKO_PSYCOPG2_IMPL: psycopg2cffi
+
+## Customize checkout
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init # use submodules
+
+## Customize dependencies
+dependencies:
+  pre:
+    - /bin/echo "pull from git test"
+  override:
+    - /bin/date
+  post:
+    - echo -e “\033[30m 黑色字 \033[0m”
+    - echo -e “\033[31m 红色字 \033[0m”
+    - echo -e “\033[32m 绿色字 \033[0m”
+    - echo -e “\033[33m 黄色字 \033[0m”
+    - echo -e “\033[34m 蓝色字 \033[0m”
+    - echo -e “\033[35m 紫色字 \033[0m”
+    - echo -e “\033[36m 天蓝字 \033[0m”
+    - echo -e “\033[37m 白色字 \033[0m” 
+
+  # we automatically cache and restore many dependencies between
+  # builds. If you need to, you can add custom paths to cache:
+  cache_directories:
+    - "custom_1"   # relative to the build directory
+    - "~/custom_2" # relative to the user's home directory
+
+## Customize database setup
+database:
+  override:
+    # replace CircleCI's generated database.yml
+    - cp config/database.yml.ci config/database.yml
+    - bundle exec rake db:create db:schema:load
+
+## Customize test commands
+test:
+  override:
+    - phpunit test/unit-tests # use PHPunit for testing
+  post:
+    - bundle exec rake jasmine:ci: # add an extra test type
+        environment:
+          RAILS_ENV: test
+          RACK_ENV: test
+
+## Customize deployment commands
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: foo-bar-123
+
+## Custom notifications
+notify:
+  webhooks:
+    # A list of hashes representing hooks. Only the url field is supported.
+    - url: https://someurl.com/hooks/circle
