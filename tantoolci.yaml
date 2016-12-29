@@ -33,14 +33,14 @@ dependencies:
   override:
     - /bin/date
   post:
-    - echo -e “\033[30m  color test \033[0m”
-    - echo -e “\033[31m  color test \033[0m”
-    - echo -e “\033[32m  color test \033[0m”
-    - echo -e “\033[33m  color test \033[0m”
-    - echo -e “\033[34m  color test \033[0m”
-    - echo -e “\033[35m  color test \033[0m”
-    - echo -e “\033[36m  color test \033[0m”
-    - echo -e “\033[37m  color test \033[0m”
+    - echo -e "\033[30m  color test \033[0m"
+    - echo -e "\033[31m  color test \033[0m"
+    - echo -e "\033[32m  color test \033[0m"
+    - echo -e "\033[33m  color test \033[0m"
+    - echo -e "\033[34m  color test \033[0m"
+    - echo -e "\033[35m  color test \033[0m"
+    - echo -e "\033[36m  color test \033[0m"
+    - echo -e "\033[37m  color test \033[0m"
 
   # we automatically cache and restore many dependencies between
   # builds. If you need to, you can add custom paths to cache:
