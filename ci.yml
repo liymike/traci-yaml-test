@@ -5,10 +5,9 @@ machine:
     America/Los_Angeles # Set the timezone
 
   # Version of ruby to use
+  language: python
   python:
-    version:
-      pypy
-
+    version: py27
   # Override /etc/hosts
   hosts:
     tantoolci: 127.0.0.1
